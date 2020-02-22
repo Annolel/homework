@@ -1,0 +1,6 @@
+#for git conteiner:
+docker build -t gitalp . -f dockerfile.gitalp
+docker run -v ${pwd}:/git gitalp https://github.com/Annolel/homework.git
+#for nginx container:
+docker build -t nginx1 . -f dockerfile.nginx 
+docker run -e X="<p>123</p>" -p 666:80 nginx1

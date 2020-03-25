@@ -1,0 +1,21 @@
+---
+- hosts: local
+  tasks:
+    - name: ensure nginx is at the latest version
+      apt: name=nginx state=latest
+    - name: start nginx
+      service:
+        name: nginx
+        state: started
+    - name: Instal PHP-FPM
+      apt:
+        name: ['php','php-fpm','php-common','php-cli','php-curl']
+        state: latest
+    - name: phpinfo
+      shell: php -i
+      register: output
+    - name: phpinfo() to a file
+      copy:
+        content: "{{output.stdout}}"
+        dest: "phpinfo().output"
+      delegate_to: localhost
